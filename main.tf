@@ -3,7 +3,7 @@
 #####
 resource "citrixadc_password_resetter" "pw_password_reset" {
   username     = var.adc-base.username
-  password     = 'nsroot'
+  password     = "nsroot"
   new_password = var.adc-base.password
 }
 
