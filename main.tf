@@ -19,17 +19,6 @@ resource "time_sleep" "pw_wait_a_few_seconds" {
 }
 
 #####
-# Wait a few seconds
-#####
-resource "time_sleep" "pw_wait_a_few_seconds_last" {
-  create_duration = "15s"
-
-  depends_on = [    
-    time_sleep.pw_wait_a_few_seconds
-  ]
-}
-
-#####
 # Save config
 #####
 resource "citrixadc_nsconfig_save" "pw_save" {    
@@ -37,6 +26,17 @@ resource "citrixadc_nsconfig_save" "pw_save" {
     timestamp = timestamp()
 
   depends_on = [
-    time_sleep.pw_wait_a_few_seconds_last
+    time_sleep.pw_wait_a_few_seconds
+  ]
+}
+
+#####
+# Wait a few seconds
+#####
+resource "time_sleep" "pw_wait_a_few_seconds_last" {
+  create_duration = "15s"
+
+  depends_on = [
+    citrixadc_nsconfig_save.pw_save
   ]
 }
